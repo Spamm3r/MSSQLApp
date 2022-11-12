@@ -35,7 +35,7 @@ namespace MSSQLApp
             if(dc != null)
             {
                 dc.Password = this.passwordBox.Password;
-                dc.BtnOperationCommand.Execute((int)OperationEnum.Polacz);
+                dc.BtnOperationCommand.Execute((int)OperationEnum.Fetch);
             }
         }
 
@@ -45,7 +45,30 @@ namespace MSSQLApp
             if (dc != null)
             {
                 dc.Password = this.passwordBox.Password;
-                dc.BtnOperationCommand.Execute((int)OperationEnum.Testuj);
+                dc.BtnOperationCommand.Execute((int)OperationEnum.Test);
+            }
+        }
+
+        void ClearPassword()
+        {
+            this.passwordBox.Password = string.Empty;
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            var dc = this.DataContext as MainViewModel;
+            if (dc != null)
+            {
+                dc.onFailClearPassword -= this.ClearPassword;
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var dc = this.DataContext as MainViewModel;
+            if (dc != null)
+            {
+                dc.onFailClearPassword += this.ClearPassword;
             }
         }
     }

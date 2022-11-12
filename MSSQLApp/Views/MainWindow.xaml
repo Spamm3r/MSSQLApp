@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MSSQLApp"
         mc:Ignorable="d"
-        Title="MSSQLApp" Height="450" Width="800">
+        Title="MSSQLApp" Height="450" Width="800"
+        Loaded="Window_Loaded"
+        Unloaded="Window_Unloaded">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -39,8 +41,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Login:" MinWidth="50"/>
-                    <TextBox Text="{Binding Login}" Grid.Column="1"/>
+                    <TextBlock Text="Login:" MinWidth="70"/>
+                    <TextBox Text="{Binding Login}" Grid.Column="1" TextWrapping="Wrap" MaxHeight="50"/>
 
                 </Grid>
 
@@ -50,15 +52,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Hasło:" MinWidth="50"/>
+                    <TextBlock Text="Password:" MinWidth="70"/>
                     <PasswordBox x:Name="passwordBox" Grid.Column="1"/>
 
                 </Grid>
             </Grid>
 
             <StackPanel Grid.Row="1">
-                <Button Content="Pobierz dane" Click="PolaczClick"/>
-                <Button Content="Testuj" Click="TestujClick" Margin="0 2 0 0"/>
+                <Button Content="Fetch data" Click="PolaczClick"/>
+                <Button Content="Test connection" Click="TestujClick" Margin="0 2 0 0"/>
             </StackPanel>
 
         </Grid>

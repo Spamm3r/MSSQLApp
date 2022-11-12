@@ -16,8 +16,8 @@ namespace MSSQLApp.ViewModels
         #region Enum
         public enum OperationEnum
         {
-            Testuj = 0,
-            Polacz = 1
+            Test = 0,
+            Fetch = 1
         }
         #endregion
 
@@ -30,7 +30,9 @@ namespace MSSQLApp.ViewModels
         public IRelayCommand<int> BtnOperationCommand { get; set; }
         #endregion
 
-        #region Model
+        #region Properties
+        public Action onFailClearPassword;
+
         private string login;
         public string Login
         {
@@ -54,12 +56,20 @@ namespace MSSQLApp.ViewModels
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Method Fetches or Tests connection with DataBase
+        /// </summary>
+        /// <param name="Argument">
+        /// OperationEnum.Test - Tests if connection with DB can be made
+        /// OperationEnum.Fetch - Fetches data (union of all int columns)
+        /// </param>
         private void OperationExecute(int Argument)
         {
-            if (Argument == (int)OperationEnum.Testuj)
+            if (Argument == (int)OperationEnum.Test)
             {
                 try
                 {
+                    //simple connection checking
                     bool isConnection = false;
                     using(var con = new SqlConnection(this.ConnectionString))
                     {
@@ -68,17 +78,24 @@ namespace MSSQLApp.ViewModels
                         con.Close();
                     }
 
+                    //okay we got connection
                     if(isConnection) MessageBox.Show("Connection Open !");
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show("Błąd podczas połączenia! " + Environment.NewLine +  ex.Message);
+                    MessageBox.Show("Error while trying to Connect! " + Environment.NewLine +  ex.Message);
+                    this.Login = string.Empty;
+                    this.Password = string.Empty;
+                    this.onFailClearPassword.Invoke();
                 }
             }
-            else if (Argument == (int)OperationEnum.Polacz)
+            else if (Argument == (int)OperationEnum.Fetch)
             {
                 try
                 {
+                    //for long connections can be downloaded inside task
+                    //and then BusyIndicator (optional) can be used to not freeze UI
+                    //BusyIndicator is from package MyToolkit.Extender or for example from Telerik
                     this.Query.Clear();
                     using (var con = new SqlConnection(this.ConnectionString))
                     {
@@ -101,7 +118,10 @@ namespace MSSQLApp.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Błąd podczas połączenia!\n" + ex.Message);
+                    MessageBox.Show("Error while trying to fetch data!\n" + ex.Message);
+                    this.Login = string.Empty;
+                    this.Password = string.Empty;
+                    this.onFailClearPassword.Invoke();
                 }
             }
         }
