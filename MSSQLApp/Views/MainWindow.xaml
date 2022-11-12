@@ -1,0 +1,66 @@
+﻿<Window x:Class="MSSQLApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MSSQLApp"
+        mc:Ignorable="d"
+        Title="MSSQLApp" Height="450" Width="800">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding Query}" AlternationCount = "0" AutoGenerateColumns = "False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header = "Col_A1" Binding = "{Binding Col_A1}" Width="*"/>
+                <DataGridTextColumn Header = "Col_B1" Binding = "{Binding Col_B1}" Width="*"/>
+                <DataGridTextColumn Header = "Col_B3" Binding = "{Binding Col_B3}" Width="*"/>
+                <DataGridTextColumn Header = "Col_C3" Binding = "{Binding Col_C3}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="1" Margin="5 0 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Login:" MinWidth="50"/>
+                    <TextBox Text="{Binding Login}" Grid.Column="1"/>
+
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="0 2 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Hasło:" MinWidth="50"/>
+                    <PasswordBox x:Name="passwordBox" Grid.Column="1"/>
+
+                </Grid>
+            </Grid>
+
+            <StackPanel Grid.Row="1">
+                <Button Content="Pobierz dane" Click="PolaczClick"/>
+                <Button Content="Testuj" Click="TestujClick" Margin="0 2 0 0"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
