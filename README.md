@@ -1,7 +1,7 @@
 # MSSQLApp
 Interview Task for C#/WPF Developer
 
-Simple WPF Application which selects union from DataBase and Displays it.
+Simple WPF Application which fetches data from DataBase and Displays it.
 
 App requirements:
 - Fetch all **int columns** and display them
