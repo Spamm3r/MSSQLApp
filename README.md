@@ -18,7 +18,9 @@ Nuget Packages:
 - MVVM Community Toolkit by Microsoft
 - WPF Controls Extender for optional / future usage of BusyIndicator for asynchronouse data fetch
 
-
+What can be done differently?
+- instead of getting union, you / we can create Tabs which will contains only data from single Table. So creating Tabs and asynchronous download of data. Or synchronouse cuz there is no much data to begin with. It depends.
+- TextBox for insterting server address. Just a possibility cuz for now you can only connect to localhost dbs.
 
 DataBase schema:
 ```
